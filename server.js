@@ -45,7 +45,7 @@ app.post("api/notes", (req, res) => {
 
 app.delete("/api/notes/:id", (req, res) => {
     let index = 0;
-    for (let i=0; i < Notes.length; i++) {
+    for (let i = 0; i < Notes.length; i++) {
         if (Notes[i].id === req.params.id) {
             index = 1;
         }
