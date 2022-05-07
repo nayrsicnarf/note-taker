@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-// const uuid = require("uuid");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -33,7 +32,7 @@ app.get("/api/notes", (req, res) => {
 // POST request to save note(s)
 app.post("/api/notes", (req, res) => {
     let newNote = `{ "title": "${req.body.title}", "text": "${req.body.text}" }`;
-// "id": "${uuid.generate()}"
+
     notes.push(JSON.parse(newNote));
 
     fs.writeFile(path.join(__dirname, "./Develop/db/db.json"), JSON.stringify(notes), err => {
