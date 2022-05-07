@@ -1,12 +1,13 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const uuid = require("uuid");
+// const uuid = require("uuid");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const Notes = JSON.parse(fs.readFileSync(path.join(__dirname, "/Develop/db/db.json")));
+const notes = JSON.parse(fs.readFileSync(path.join(__dirname, "./Develop/db/db.json")));
+console.log(notes);
 
 // Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
@@ -24,41 +25,44 @@ app.get("/notes", (req, res) => {
     res.sendFile(path.join(__dirname, "./Develop/public/notes.html"));
 });
 
-// GET "*"" must be after GET notes or else it won't load notes.html when "Get Started" button is clicked
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
+app.get("/api/notes", (req, res) => {
+    console.log(notes);
+    return res.json(notes);
 });
 
-app.get("api/notes", (req, res) => {
-    return res.json(Notes);
-});
+// POST request to save note(s)
+app.post("/api/notes", (req, res) => {
+    let newNote = `{ "title": "${req.body.title}", "text": "${req.body.text}" }`;
+// "id": "${uuid.generate()}"
+    notes.push(JSON.parse(newNote));
 
-app.post("api/notes", (req, res) => {
-    let newNote = `{ "title": "${req.body.title}", "text": "${req.body.text}", "id": "${uuid.generate()}"}`;
-
-    Notes.push(JSON.parse(newNote));
-
-    fs.writeFile(path.join(__dirname, "./Develop/db/db.json"), JSON.stringify(Notes), err => {
+    fs.writeFile(path.join(__dirname, "./Develop/db/db.json"), JSON.stringify(notes), err => {
         if (err) throw err;
+        console.log(newNote);
     });
-    return res.json(newNote);
+    res.json(newNote);
 });
 
 app.delete("/api/notes/:id", (req, res) => {
     let index = 0;
-    for (let i = 0; i < Notes.length; i++) {
-        if (Notes[i].id === req.params.id) {
+    for (let i = 0; i < notes.length; i++) {
+        if (notes[i].id === req.params.id) {
             index = 1;
         }
     }
 
-    Notes.splice(index, 1);
-    fs.writeFile(path.join(__dirname, "./Develop/db/db.json"), JSON.stringify(Notes), err => {
+    notes.splice(index, 1);
+    fs.writeFile(path.join(__dirname, "./Develop/db/db.json"), JSON.stringify(notes), err => {
         if (err) throw err;
         res.end();
     });
 });
 
+// GET "*"" must be after GET notes or else it won't load notes.html when "Get Started" button is clicked
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
+});
+
 app.listen(PORT, () => {
-    console.log("App listening on PORT " + PORT);
+    console.log(`App listening at http://localhost:${PORT}`);
 });
