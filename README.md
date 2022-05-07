@@ -47,8 +47,9 @@ To view the completed project, visit my [GitHub](https://github.com/nayrsicnarf/
 
 ## Screenshot
 
-![Terminal Screenshot]()
-![README Generate Screenshot]()
+![Note Taker Screenshot - Main](/Assets/Note-Taker-main.png)
+![Note Taker Screenshot - Create](/Assets/Note-Taker-create.png)
+![Note Taker Screenshot - Delete](/Assets/Note-Taker-delete.png)
 
 ## Credits
 
