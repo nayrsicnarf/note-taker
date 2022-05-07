@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const notes = JSON.parse(fs.readFileSync(path.join(__dirname, "./Develop/db/db.json")));
-console.log(notes);
+//console.log(notes);
 
 // Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
@@ -25,7 +25,7 @@ app.get("/notes", (req, res) => {
 });
 
 app.get("/api/notes", (req, res) => {
-    console.log(notes);
+    //console.log(notes);
     return res.json(notes);
 });
 
@@ -42,6 +42,7 @@ app.post("/api/notes", (req, res) => {
     res.json(newNote);
 });
 
+// DELETE to handle the note delete
 app.delete("/api/notes/:id", (req, res) => {
     let index = 0;
     for (let i = 0; i < notes.length; i++) {
@@ -57,11 +58,12 @@ app.delete("/api/notes/:id", (req, res) => {
     });
 });
 
-// GET "*"" must be after GET notes or else it won't load notes.html when "Get Started" button is clicked
+// GET "*"" must be at the end or else it won't load notes.html when "Get Started" button is clicked; this will also cause a syntax error
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
 });
 
+// console logs the port being used (3000)
 app.listen(PORT, () => {
     console.log(`App listening at http://localhost:${PORT}`);
 });
