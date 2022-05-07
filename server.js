@@ -12,7 +12,7 @@ const Notes = JSON.parse(fs.readFileSync(path.join(__dirname, ".Develop/db/db.js
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static("Develop/public"));
+app.use(express.static("/Develop/public"));
 
 // GET request for index
 app.get("/", (req, res) => {
@@ -37,7 +37,7 @@ app.post("api/notes", (req, res) => {
 
     Notes.push(JSON.parse(newNotes));
 
-    fs.writeFile(path.join(__Dirname, "./Develop/db/db.josn"), JSON.stringify(Notes), err => {
+    fs.writeFile(path.join(__dirname, "./Develop/db/db.json"), JSON.stringify(Notes), err => {
         if (err) throw err;
     });
     return res.json(newNotes);
@@ -52,7 +52,7 @@ app.delete("/api/notes/:id", (req, res) => {
     }
 
     Notes.splice(index, 1);
-    fs.writeFile(path.join(__dirname, "./Develop/db/db.josn"), JSON.stringify(Notes), err => {
+    fs.writeFile(path.join(__dirname, "./Develop/db/db.json"), JSON.stringify(Notes), err => {
         if (err) throw err;
         res.end();
     });
