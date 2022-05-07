@@ -19,13 +19,14 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
 });
 
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
-});
-
 // Get request for notes
 app.get("/notes", (req, res) => {
     res.sendFile(path.join(__dirname, "./Develop/public/notes.html"));
+});
+
+// GET "*"" must be after GET notes or else it won't load notes.html when "Get Started" button is clicked
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
 });
 
 app.get("api/notes", (req, res) => {
@@ -33,14 +34,14 @@ app.get("api/notes", (req, res) => {
 });
 
 app.post("api/notes", (req, res) => {
-    let newNotes = `{ "title": "${req.body.title}", "text": "${req.body.text}", "id": "${uuid.generate()}"}`;
+    let newNote = `{ "title": "${req.body.title}", "text": "${req.body.text}", "id": "${uuid.generate()}"}`;
 
-    Notes.push(JSON.parse(newNotes));
+    Notes.push(JSON.parse(newNote));
 
     fs.writeFile(path.join(__dirname, "./Develop/db/db.json"), JSON.stringify(Notes), err => {
         if (err) throw err;
     });
-    return res.json(newNotes);
+    return res.json(newNote);
 });
 
 app.delete("/api/notes/:id", (req, res) => {
