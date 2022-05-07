@@ -20,9 +20,9 @@ The goal of this assignment is to create a note taking application using a Node.
 
 - [GitHub Repository](https://github.com/nayrsicnarf/note-taker.git)
 
-- [Video Demonstration](https://drive.google.com/file/d/1Er47JPG8dXDl5dMIaAH8Tb46Qny7eTZL/view?usp=sharing)
+- [Video Demonstration](https://drive.google.com/file/d/1AfPRh7N-0wfcUdWvGcCA22uq3ry6mi8r/view?usp=sharing)
 
-- [Heroku Deployment](https://drive.google.com/file/d/1Er47JPG8dXDl5dMIaAH8Tb46Qny7eTZL/view?usp=sharing)
+- [Heroku Deployment](https://infinite-lake-69578.herokuapp.com/)
 
 ## Technologies
 
