@@ -6,13 +6,13 @@ const uuid = require("uuid");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const Notes = JSON.parse(fs.readFileSync(path.join(__dirname, ".Develop/db/db.json")));
+const Notes = JSON.parse(fs.readFileSync(path.join(__dirname, "/Develop/db/db.json")));
 
 // Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static("/Develop/public"));
+app.use(express.static("Develop/public"));
 
 // GET request for index
 app.get("/", (req, res) => {
